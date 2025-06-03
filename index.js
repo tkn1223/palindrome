@@ -31,4 +31,10 @@ function Phrase(content) {
   this.palindrome = function palindrome() {
     return this.processedContent() === this.processedContent().reverse();
   }
+
+  // 
+  this.letters = function letters() {
+    const lettersRegEx = /[a-z]/gi;
+    return Array.from(this.content).filter(c => c.match(lettersRegEx)).join("");
+  }
 }
