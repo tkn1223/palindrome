@@ -1,54 +1,34 @@
 module.exports = Phrase;
 
-
-// 文字列を逆順にして返す
-function reverse(string) {
-    return Array.from(string).reverse().join("");
+// reverse()メソッドを追加してすべてのStringで使えるようにする
+String.prototype.reverse = function() {
+  return Array.from(this).reverse().join("");
 }
-
-// パリンドロームならTureを、違うならFalseを返す
-// function palindrome(string) {
-//     let processedContent = string.toLowerCase();
-//     if (processedContent === reverse(processedContent)) {
-//         return `これは回文です`
-//     } else {
-//         return `これは回文ではありません`
-//     }
-// }
 
 // Phraseオブジェクトを定義する
-class Phrase {
-    constructor(content) {
-        this.content = content;
-    }
+function Phrase(content) {
+  this.content = content;
 
-    processor(string) {
-        return string.toLowerCase();
-    }
+  // パリンドロームのテスト用に変換した訳文を返す
+  this.processedContent = function processedContent() {
+    return this.letters().toLowerCase();
+  }
 
-    processedContent() {
-        return this.processor(this.content);
-    }
+  // コンテンツの文字だけを返す
+  this.letters = function letters() {
+    // let theLetters = [];
+    // const letterRegex = /[a-z]/i;
+    // Array.from(this.content).forEach(function(character) {
+    //     if (character.match(letterRegex)) {
+    //         theLetters.push(character);
+    //     }
+    // });
+    // return theLetters.join("");
+    return (this.content.match(/[a-z]/gi) || []).join("");
+  }
 
-    palindrome() {
-        return this.processedContent() === reverse(this.processedContent());
-    }
+  // パリンドロームならtrueを、違うならfalseを返す
+  this.palindrome = function palindrome() {
+    return this.processedContent() === this.processedContent().reverse();
+  }
 }
-
-// TranslatedPhraseオブジェクトを定義する
-class TranslatedPhrase extends Phrase {
-    constructor(content, translation) {
-        this.content = content;
-        this.translation = translation;
-    }
-
-    // パリンドロームのテスト用に変換したcontentを返す
-    processedContent() {
-        return this.processor(this.translation);
-    }
-}
-
-let phrase = new Phrase("Racecar");
-console.log(phrase.content);
-console.log(phrase.processedContent());
-console.log(phrase.palindrome());
