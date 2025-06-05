@@ -16,20 +16,16 @@ function Phrase(content) {
 
   // コンテンツの文字だけを返す
   this.letters = function letters() {
-    // let theLetters = [];
-    // const letterRegex = /[a-z]/i;
-    // Array.from(this.content).forEach(function(character) {
-    //     if (character.match(letterRegex)) {
-    //         theLetters.push(character);
-    //     }
-    // });
-    // return theLetters.join("");
     return (this.content.match(/[a-z]/gi) || []).join("");
   }
 
-  // パリンドロームならtrueを、違うならfalseを返す
+  // パリンドロームならtrueを、違うならfalseを返す、空っぽならfalseを返す
   this.palindrome = function palindrome() {
-    return this.processedContent() === this.processedContent().reverse();
+    if (this.processedContent()) {
+      return this.processedContent() === this.processedContent().reverse();
+    } else {
+      return false;
+    }
   }
 
   // 
